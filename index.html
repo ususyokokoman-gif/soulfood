@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>南佐久ソウルフードカタログ</title>
+
+<style>
+:root{
+  --bg:#fffaf3;                 /* 全体のページ背景（あたたかい和紙） */
+  --ink:#2e2b25;
+  --ring:#e8d9bb;
+  --shadow-card:0 18px 40px rgba(180,120,40,.12);
+  --radius-xl:24px;
+  --radius-md:16px;
+
+  --hero-accent:#b63a2d;
+  --hero-bg-grad-top:#fff6e3;
+  --hero-bg-grad-bot:#fff0c9;
+
+  /* タイトル背景は暖簾(noren.png)と全体の間をとる灰ベージュ */
+  --title-bg:#e5dfd2;
+  --title-border:#d0c6b3;
+  --title-shadow:0 14px 28px rgba(60,40,10,.18);
+}
+
+body{
+  margin:0;
+  font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-text-size-adjust:100%;
+}
+
+.wrap{
+  max-width:1160px;
+  margin:0 auto;
+  padding:24px 16px 96px;
+}
+
+/* =========================
+   タイトル（暖簾ブロック）
+   ========================= */
+.site-title-block{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.45) 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(to bottom,
+      rgba(229,223,210,1) 0%,
+      rgba(220,212,196,1) 60%,
+      rgba(214,206,190,1) 100%
+    );
+  border:1px solid var(--title-border);
+  border-radius:20px;
+  box-shadow:var(--title-shadow);
+  padding:20px 16px 18px;
+  text-align:center;
+  margin:0 auto 24px;
+  max-width:1000px;
+  position:relative;
+}
+
+/* 暖簾の影を受ける帯。棒そのものは描かず、浮き感だけ抑える */
+.site-title-block::before{
+  content:"";
+  position:absolute;
+  top:8px;
+  left:16px;
+  right:16px;
+  height:24px;
+  border-radius:12px;
+  background:radial-gradient(
+    ellipse at 50% 0%,
+    rgba(0,0,0,.18) 0%,
+    rgba(0,0,0,0) 70%
+  );
+  opacity:.25;
+  filter:blur(6px);
+  pointer-events:none;
+}
+
+.site-title-inner{
+  position:relative;
+  max-width:900px;
+  margin:0 auto;
+}
+
+/* 透過暖簾ロゴ noren.png */
+.site-title-inner img{
+  width:100%;
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 3px 6px rgba(40,30,10,.4));
+}
+
+@media(max-width:600px){
+  .site-title-block{
+    border-radius:16px;
+    padding:16px 12px 14px;
+    margin-bottom:20px;
+  }
+  .site-title-inner{
+    max-width:92%;
+  }
+}
+
+/* =========================
+   ヒーロー
+   （スマホ：表紙→説明／PC：左=表紙 右=説明）
+   ========================= */
+
+.hero{
+  background:linear-gradient(
+    to bottom,
+    var(--hero-bg-grad-top) 0%,
+    var(--hero-bg-grad-bot) 100%
+  );
+  border:2px solid rgba(182,58,45,.25);
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-card);
+  padding:24px 20px;
+  margin:0 auto 36px;
+
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  align-items:start;
+  max-width:1000px;
+}
+
+@media(min-width:760px){
+  .hero{
+    grid-template-columns:auto 1fr;
+    gap:28px;
+    padding:28px 32px;
+  }
+}
+
+/* 最新号表紙（カレー） */
+.cover{
+  order:0; /* モバイルで先頭に出す */
+  position:relative;
+  max-width:260px;
+  width:100%;
+  justify-self:center;
+  display:flex;
+  justify-content:center;
+}
+@media(min-width:760px){
+  .cover{max-width:260px;}
+}
+
+.cover img{
+  width:100%;
+  height:auto;
+  border-radius:14px;
+  border:2px solid rgba(182,58,45,.4);
+  box-shadow:0 18px 36px rgba(0,0,0,.25);
+  background:#fff;
+  display:block;
+}
+
+.cover-badge{
+  position:absolute;
+  top:-10px;
+  left:-10px;
+  background:var(--hero-accent);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:999px;
+  box-shadow:0 4px 10px rgba(0,0,0,.4);
+}
+
+.cover-link{
+  display:block;
+  text-decoration:none;
+}
+
+/* 説明ブロック（キャッチ・商工会・公式バナー） */
+.hero-left{
+  order:1; /* モバイルで表紙の次に来る */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  row-gap:16px;
+  max-width:520px;
+  margin:0 auto;
+}
+@media(min-width:760px){
+  .hero-left{
+    order:0;
+    align-items:flex-start;
+    text-align:left;
+  }
+}
+
+/* キャッチコピー */
+.catch{
+  margin:0;
+  font-family:'Hiragino Mincho ProN','Yu Mincho','Noto Serif JP',serif;
+  font-size:clamp(16px,2.4vw,20px);
+  font-weight:700;
+  line-height:1.8;
+  color:#4b1d1d;
+  background:#fffefb;
+  padding:16px;
+  border-radius:var(--radius-md);
+  border:1px solid #f0d5bd;
+  box-shadow:
+    inset 0 0 6px rgba(0,0,0,.07),
+    0 2px 4px rgba(0,0,0,.05);
+  text-shadow:0 1px 1px rgba(255,255,255,.8);
+  width:100%;
+}
+@media(min-width:760px){
+  .catch{max-width:480px;}
+}
+
+/* 発行者・商工会リスト（順番Aに更新） */
+.meta{
+  margin:0;
+  font-size:12px;
+  line-height:1.7;
+  color:#5b4a3a;
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(180,120,40,.25);
+  border-radius:12px;
+  padding:12px 16px;
+  box-shadow:0 6px 16px rgba(0,0,0,.08);
+  width:100%;
+  max-width:480px;
+}
+@media(min-width:760px){
+  .meta{text-align:left;}
+}
+
+/* 公式サイトバナー */
+.hero-banner{
+  text-align:center;
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(180,120,40,.25);
+  border-radius:12px;
+  padding:12px 12px 10px;
+  box-shadow:0 6px 16px rgba(0,0,0,.08);
+}
+.hero-banner a{
+  text-decoration:none;
+  display:inline-block;
+}
+.hero-banner img{
+  width:150px;
+  max-width:40vw;
+  height:auto;
+  border-radius:8px;
+  border:2px solid rgba(182,58,45,.4);
+  box-shadow:0 4px 10px rgba(0,0,0,.22);
+}
+@media(max-width:400px){
+  .hero-banner img{
+    width:140px;
+    max-width:48vw;
+  }
+}
+@media(min-width:760px){
+  .hero-banner{text-align:left;}
+}
+
+/* =========================
+   カタログ一覧（カレー以外）
+   ========================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  list-style:none;
+  padding:0;
+  margin:0;
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+}
+@media(min-width:600px){
+  .grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:20px;
+  }
+}
+@media(min-width:900px){
+  .grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:24px;
+  }
+}
+
+.card{
+  background:#ffffff;
+  border:1px solid var(--ring);
+  border-radius:20px;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  text-align:center;
+  overflow:hidden;
+  position:relative;
+  transition:.25s;
+}
+.card:hover{
+  transform:translateY(-3px);
+}
+
+.thumb img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-top:1px solid var(--ring);
+  border-bottom:1px solid var(--ring);
+  background:#fff;
+}
+
+.card-foot{
+  padding:12px 12px 16px;
+}
+
+/* PDFボタン */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:9px 13px;
+  background:linear-gradient(to bottom,#fffefb 0%,#fff4e4 100%);
+  border:1px solid #e6cfa7;
+  border-radius:12px;
+  color:#4a3d33;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  line-height:1.2;
+  min-width:120px;
+  box-shadow:0 6px 12px rgba(0,0,0,.08);
+  transition:.2s;
+}
+.btn:hover{
+  background:linear-gradient(to bottom,#fffefb 0%,#ffe9c5 100%);
+  transform:translateY(-1px);
+  box-shadow:0 10px 16px rgba(0,0,0,.12);
+}
+
+/* =========================
+   フッター
+   （順番Aをこちらにも反映）
+   ========================= */
+footer{
+  text-align:center;
+  margin-top:40px;
+  font-size:12px;
+  color:#7b6f62;
+  line-height:1.7;
+}
+footer .issuer{
+  font-weight:600;
+  color:#5b4a3a;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- タイトル（暖簾） -->
+  <section class="site-title-block">
+    <div class="site-title-inner">
+      <img src="noren.png" alt="南佐久ソウルフードカタログ タイトル画像">
+    </div>
+  </section>
+
+  <!-- ヒーロー：最新号＋紹介＋公式導線 -->
+  <section class="hero">
+    <!-- 最新号カレー表紙 -->
+    <a class="cover cover-link" href="R07.pdf" target="_blank" rel="noopener noreferrer">
+      <span class="cover-badge">NEW!</span>
+      <img src="cover_curry.png" alt="カレー編 最新号 表紙">
+    </a>
+
+    <!-- 説明＋発行＋リンク -->
+    <div class="hero-left">
+      <p class="catch">
+        ソウルフードとは、地域の味であり、<br>
+        地域で愛されている店と人が作りあげる<br>
+        フード（風土）である。
+      </p>
+
+      <p class="meta">
+        発行：広域経営支援センター南佐久エリア<br>
+        臼田町商工会／佐久穂町商工会／小海町商工会／南相木村商工会／北相木村商工会／南牧村商工会／川上村商工会
+      </p>
+
+      <div class="hero-banner">
+        <a href="https://minamisaku.jimdofree.com/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://image.jimcdn.com/app/cms/image/transf/dimension=320x10000:format=jpg/path/s643912acae1578a3/image/i2256a0bab45fbe8f/version/1375749627/image.jpg"
+            alt="南佐久公式サイトはこちら">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- カレー以外の冊子リスト -->
+  <ul class="grid">
+
+    <li class="card">
+      <div class="thumb">
+        <img src="R03_cover.jpg" alt="ラーメン編 表紙サムネ">
+      </div>
+      <div class="card-foot">
+        <a class="btn" href="R03.pdf" target="_blank" rel="noopener noreferrer">PDFを開く</a>
+      </div>
+    </li>
+
+    <li class="card">
+      <div class="thumb">
+        <img src="R04_cover.jpg" alt="丼編 表紙サムネ">
+      </div>
+      <div class="card-foot">
+        <a class="btn" href="R04.pdf" target="_blank" rel="noopener noreferrer">PDFを開く</a>
+      </div>
+    </li>
+
+    <li class="card">
+      <div class="thumb">
+        <img src="R05_cover.jpg" alt="おつまみ編 表紙サムネ">
+      </div>
+      <div class="card-foot">
+        <a class="btn" href="R05.pdf" target="_blank" rel="noopener noreferrer">PDFを開く</a>
+      </div>
+    </li>
+
+    <li class="card">
+      <div class="thumb">
+        <img src="R06_cover.jpg" alt="スイーツ編 表紙サムネ">
+      </div>
+      <div class="card-foot">
+        <a class="btn" href="R06.pdf" target="_blank" rel="noopener noreferrer">PDFを開く</a>
+      </div>
+    </li>
+
+  </ul>
+
+  <!-- フッター（順番Aと同じ並び） -->
+  <footer>
+    <p class="issuer">発行：広域経営支援センター南佐久エリア</p>
+    <p>
+      臼田町商工会／佐久穂町商工会／小海町商工会／南相木村商工会／北相木村商工会／南牧村商工会／川上村商工会
+    </p>
+    <p>信州南佐久へ出かけよう！</p>
+  </footer>
+
+</div>
+</body>
+</html>
